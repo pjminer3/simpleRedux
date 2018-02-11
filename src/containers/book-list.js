@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
+// Imports connect function from react-redux
+import { connect } from 'react-redux';
 
-export default class BookList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-  
+class BookList extends Component {
   renderList() {
     return this.props.books.map((book) => {
       return (
@@ -23,3 +19,14 @@ export default class BookList extends Component {
     )
   }
 }
+
+// mapStatToProps automatically takes the entire application state as the argument
+function mapStateToProps(state) {
+  // Whatever is returned from here will show up as props for BookList
+  return {
+    books: state.books
+  };
+}
+
+// The below exports a container connected to Redux, instead of a basic component
+export default connect(mapStateToProps)(BookList);
